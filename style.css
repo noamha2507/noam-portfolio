@@ -1308,27 +1308,7 @@ body:hover .cursor-outline.hovered {
     font-weight: 600;
 }
 
-.whatsapp-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-size: 1.1rem;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.8rem 1.8rem;
-    background: #25D366;
-    /* WhatsApp Green */
-    border-radius: 100px;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
-}
 
-.whatsapp-btn:hover {
-    background: #128C7E;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-}
 
 .social-minimal a i,
 .social-minimal a svg {
