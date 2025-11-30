@@ -124,6 +124,7 @@ body:hover .cursor-outline.hovered {
     max-width: var(--container-width);
     margin: 0 auto;
     padding: 0 2rem;
+    width: 100%; /* Ensure it takes full width up to max */
 }
 
 .section {
@@ -288,6 +289,7 @@ body:hover .cursor-outline.hovered {
     flex-direction: column;
     gap: 6px;
     cursor: pointer;
+    z-index: 1001; /* Above mobile menu */
 }
 
 .menu-toggle span {
@@ -999,46 +1001,50 @@ body:hover .cursor-outline.hovered {
 
     /* Navbar Mobile */
     .navbar .container {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0.8rem 1.5rem;
-        gap: 1rem;
+        /* flex-direction: column;  Keep row for logo + toggle */
+        align-items: center;
+        padding: 0 1.5rem;
+        height: 100%;
     }
 
     .navbar {
-        background: rgba(3, 7, 18, 0.9);
-        /* More opaque on mobile */
+        background: rgba(3, 7, 18, 0.95);
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        height: 70px; /* Fixed height for mobile */
     }
 
     .logo-area {
-        width: 100%;
-        justify-content: space-between;
+        width: auto; /* Allow space for toggle */
+    }
+
+    .menu-toggle {
+        display: flex; /* Show hamburger */
     }
 
     .nav-menu {
+        position: fixed;
+        top: 70px; /* Below navbar */
+        left: 0;
         width: 100%;
-        overflow-x: auto;
-        padding-bottom: 10px;
-        /* More space for touch */
-        gap: 1.5rem;
-        -webkit-overflow-scrolling: touch;
-        mask-image: linear-gradient(to right, black 85%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-        scrollbar-width: none;
-        /* Hide scrollbar Firefox */
+        height: calc(100vh - 70px);
+        background: var(--bg-dark);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+        transform: translateX(100%); /* Hidden by default */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-top: 1px solid var(--border);
     }
 
-    .nav-menu::-webkit-scrollbar {
-        display: none;
-        /* Hide scrollbar Chrome/Safari */
+    .nav-menu.active {
+        transform: translateX(0); /* Show menu */
     }
 
     .nav-link {
-        white-space: nowrap;
-        font-size: 0.95rem;
-        padding: 0.5rem 0;
-        /* Larger touch target */
+        font-size: 1.5rem; /* Larger for mobile menu */
+        font-weight: 600;
     }
 
     .navbar .btn-primary {
@@ -1049,49 +1055,38 @@ body:hover .cursor-outline.hovered {
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: 2rem;
-        /* Reduced gap */
-        padding-top: 1rem;
-    }
-
-    .hero-greeting {
-        justify-content: center;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        gap: 3rem;
+        padding-top: 2rem;
     }
 
     .hero-title-large {
-        font-size: 2.5rem;
-        /* Smaller for better wrapping */
+        font-size: 2.8rem;
         line-height: 1.2;
     }
 
     .hero-desc-large {
-        margin-left: auto;
-        margin-right: auto;
-        font-size: 1.05rem;
-        max-width: 100%;
-        padding: 0 1rem;
+        margin: 0 auto 2rem;
+        font-size: 1rem;
     }
 
     .hero-actions {
         justify-content: center;
         flex-direction: column;
-        /* Stack buttons on very small screens? No, keep row but ensure fit */
         gap: 1rem;
+        padding: 0 1rem;
     }
 
-    .btn-primary,
-    .btn-secondary {
+    .btn-magnetic {
         width: 100%;
-        /* Full width buttons on mobile */
         justify-content: center;
     }
 
     .profile-card-3d {
-        max-width: 260px;
-        /* Slightly smaller */
+        width: 100%;
+        max-width: 320px;
+        height: 400px;
         margin: 0 auto;
+        transform: none !important; /* Disable 3D tilt */
     }
 
     /* Grid Mobile */
@@ -1107,6 +1102,11 @@ body:hover .cursor-outline.hovered {
     .cell-soft,
     .cell-tech {
         grid-column: span 1 !important;
+        grid-row: auto !important;
+    }
+
+    .tech-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 cols for tech items */
     }
 
     .projects-grid-premium {
@@ -1120,33 +1120,21 @@ body:hover .cursor-outline.hovered {
 
     /* Gallery Rail Mobile */
     .project-gallery-rail {
-        padding: 1rem 0;
         margin: 1rem -1.5rem;
-        /* Negative margin to bleed to edge */
-        padding-left: 1.5rem;
-        /* Padding to align with content initially */
-        padding-right: 1.5rem;
+        padding: 1rem 1.5rem;
         mask-image: none;
-        /* Remove mask on mobile for full visibility */
         -webkit-mask-image: none;
     }
 
     .gallery-thumb {
-        flex: 0 0 140px;
-        /* Larger touch targets */
-        height: 90px;
+        flex: 0 0 120px;
+        height: 80px;
         transform: none !important;
-        /* Disable 3D tilt on mobile for performance/usability */
-    }
-
-    .gallery-thumb:hover {
-        transform: scale(1.05) !important;
     }
 
     /* General Spacing */
     .section-container {
-        padding: 3rem 1.5rem;
-        /* Balanced padding */
+        padding: 2.5rem 1.5rem;
     }
 
     .section-title {
@@ -1165,6 +1153,12 @@ body:hover .cursor-outline.hovered {
 
     * {
         cursor: auto;
+    }
+    
+    /* Metrics Mobile */
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 }
 
